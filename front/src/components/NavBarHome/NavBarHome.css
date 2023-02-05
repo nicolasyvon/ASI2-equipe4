@@ -1,0 +1,87 @@
+.MoneyUser{
+    top: 70px;
+    left: 80px;
+    width: 224px;
+    height: 85px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: center;
+    flex-shrink: 1;
+    border-color: #000000;
+    border-style: inset;
+    border-width: 3px;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(9, 9, 9, 0);
+}
+
+.MoneyImage{
+    top: 13px;
+    left: 21px;
+    width: 55px;
+    height: 59px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.MoneyLabel{
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    margin: auto;
+    position: absolute;
+    font-size: 50px;
+    align-self: center;
+}
+
+.user{
+    top: 70px;
+    right: 80px;
+    width: 224px;
+    height: 85px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: #000000;
+    border-style: inset;
+    border-width: 3px;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(217, 217, 217, 0);
+}
+
+.userImages{
+    top: 13px;
+    left: 18px;
+    width: 48px;
+    height: 59px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.userLabel{
+      top: 10px;
+  right: 10px;
+  bottom: 10px;
+  margin: auto;
+  position: absolute;
+  font-size: 40px;
+  align-self: center;
+}

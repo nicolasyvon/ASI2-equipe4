@@ -1,0 +1,39 @@
+.BUY-label{
+    top: 43px;
+    right: 50px;
+    margin: auto;
+    position: absolute;
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.SELL-label{
+    top: 43px;
+    right: 50px;
+    margin: auto;
+    position: absolute;
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.PLAY-label{
+    top: 43px;
+    right: 50px;
+    margin: auto;
+    position: absolute;
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 700;
+}
+.CONNECT-label{
+    top: 46px;
+    left: 184px;
+    margin: auto;
+    position: absolute;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+
+}

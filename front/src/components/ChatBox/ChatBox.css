@@ -1,0 +1,90 @@
+.chatBox {
+  left: 0%;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  align-items: flex-end;
+  border: 2px solid black;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.message {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.inputMessages {
+  top: 0px;
+  left: 0px;
+  width: 80%;
+  height: 100%;
+  position: absolute;
+  align-self: flex-start;
+  padding-left: 0px;
+}
+.sendButton {
+  right: 0px;
+  width: 20%;
+  bottom: 0px;
+  height: 100%;
+  position: absolute;
+  align-self: flex-end;
+  text-align: center;
+}
+.chat {
+  flex: 0 0 auto;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  bottom: 10%;
+  height: 70%;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.information {
+  top: 0%;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.userBattle {
+  right: 5%;
+  width: 40%;
+  bottom: 30%;
+  height: 30%;
+  display: flex;
+  position: absolute;
+  border: 2px solid black;
+  align-items: center;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  justify-content: flex-start;
+}
+.imageUser {
+  top: 0px;
+  left: 0px;
+  width: 30%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+.selectFriend {
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  height: 15%;
+  position: absolute;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+}

@@ -1,0 +1,105 @@
+.Buy {
+    top: 114px;
+    left: 73px;
+    width: 500px;
+    height: 200px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-shadow: 5px 5px 10px 0px #040404;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: #000000;
+    border-style: inset;
+    border-width: 3px;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(217, 217, 217, 0);
+  }
+
+  .Play {
+    top: 426px;
+    left: 73px;
+    width: 500px;
+    height: 200px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-shadow: 5px 5px 10px 0px #040404;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: #000000;
+    border-style: inset;
+    border-width: 3px;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(217, 217, 217, 0);
+  }
+
+  .Sell {
+    top: 114px;
+    right: 76px;
+    width: 500px;
+    height: 200px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-shadow: 5px 5px 10px 0px #080808;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: #000000;
+    border-style: inset;
+    border-width: 3px;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(217, 217, 217, 0);
+  }
+
+  .Connection{
+    top: 426px;
+    right: 76px;
+    width: 500px;
+    height: 200px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-shadow: 5px 5px 10px 0px #040404;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: #000000;
+    border-style: inset;
+    border-width: 3px;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(217, 217, 217, 0);
+  }
+  .goBack{
+    display: flex;
+    position: relative;
+  }
+
+  .goBackImg{
+    width: 50px;
+    height: 50px;
+    align-self: center;
+  }

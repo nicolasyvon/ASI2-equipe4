@@ -1,0 +1,16 @@
+{
+  "name": "notification_service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --experimental-json-modules server.mjs"
+  },
+  "author": "Nicolas Clain",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}
