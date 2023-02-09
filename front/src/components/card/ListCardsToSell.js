@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 
 
 
-export const ListCards= ( state={items:undefined} )=>{
+export const ListCardsToSell= ( state={items:undefined} )=>{
   let dispatch=useDispatch();
   //const [cardListLength, setCardListLength] = useState(currentUser.cardList.length);
-  let currentUser=useSelector(state=>state.userReducer.user);
+  let currentUser = useSelector(state=>state.userReducer.user);
 
-  function handleclick(item) {
+  function handleClick(item) {
     console.log('The link has been  clicked.', item);
     dispatch(updateCurrentCard(item));
   
@@ -21,7 +21,7 @@ export const ListCards= ( state={items:undefined} )=>{
   
   const [cards, setCards] = useState([]);
   const fetchData = () => {
-    fetch(API_USER+"/cards_to_sell")
+    fetch(API_USER+"cards")
        .then(response => {
            return response.json()
          })
@@ -58,24 +58,23 @@ export const ListCards= ( state={items:undefined} )=>{
                           </tr>
                           </thead>
               
-    {
-                cards.map((item) => ( 
-               
-                        
-                        <tbody>
-                          <tr key = { item.id }onClick={() =>handleclick(item)} >
-                          <td >{ item.name }</td>
-                            <td >{ item.description }</td>
-                            <td>{ item.family }</td>
-                            <td>{ item.affinity }</td>
-                            <td>{ item.energy }</td>
-                            <td>{ item.hp }</td>
-                            <td>{ item.price }</td>
-                            <td>{ item.id }</td>
-                          </tr>
-                        </tbody>           
-                ))
-            }
+                          {
+                            cards.filter(card => currentUser.cardList.includes(card.id))
+                              .map((item) => ( 
+                                <tbody>
+                                  <tr key={item.id} onClick={() => handleClick(item)}>
+                                    <td>{ item.name }</td>
+                                    <td>{ item.description }</td>
+                                    <td>{ item.family }</td>
+                                    <td>{ item.affinity }</td>
+                                    <td>{ item.energy }</td>
+                                    <td>{ item.hp }</td>
+                                    <td>{ item.price }</td>
+                                    <td>{ item.id }</td>
+                                  </tr>
+                                </tbody>           
+                              ))
+                          }
                       </table>
 
     </div>

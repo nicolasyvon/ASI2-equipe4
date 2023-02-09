@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Grid, Segment,Menu } from 'semantic-ui-react';
 import { User } from '../../components/user/containers/User';
-import {ListCards} from '../../components/card/ListCards';
+import { ListCardsToSell } from '../../components/card/ListCardsToSell';
 import { useSelector } from 'react-redux';
 import "./Sell.css";
 import { API_USER } from "../../ressource/config";
+import {  useDispatch } from 'react-redux';
+import {updateUser} from '../../redux/actions/index';
 
 
 
 //Create function component
 export const Sell =(props) =>{
   const item = useSelector(state=> state.cardReducer.value);
-  let currentUserId=useSelector(state=>state.userReducer.user_id);
+  let currentUser=useSelector(state=>state.userReducer.user);
+  const dispatch = useDispatch();
 
-    const [currentUser,setCurrentUser]= useState({
+    /*const [currentUser,setCurrentUser]= useState({
                                         id:12,
                                         surname:"John",
                                         lastname:"Doe",
@@ -41,28 +44,51 @@ export const Sell =(props) =>{
 
     function submitUserHandler(data){
       console.log("user to submit"+data);
-    };
+    };*/
 
     function sellCard(){
       let jsonData = { 
-      user_id: parseInt(currentUserId), 
+      user_id: currentUser, 
       card_id: item.id,
       
       }
-      console.log("button clicked",jsonData)
-      // Send data to the backend via POST
-      fetch(API_USER+'store/sell', { // Enter your IP address here
-     
+      console.log("button SELL clicked",jsonData)
+      fetch(API_USER+'store/sell', { 
       headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
       },
       method: 'POST', 
-      body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
+      body: JSON.stringify(jsonData) 
       
       })
-      console.log(jsonData)
-      }
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        console.log("Transaction success!");
+        fetch(API_USER + "user/" + currentUser.id)
+          .then(res => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+          })
+          .then(data => {
+            dispatch(updateUser(data));
+            alert("Vente bien effectuée !")
+          });
+      })
+      .catch(error => console.error(error));
+      } 
+      
+        
+      
+
 
     return (
       <div className='SoldCard'>
@@ -71,14 +97,18 @@ export const Sell =(props) =>{
             name='heropres'>
             Sell Cards
           </Menu.Item>
+          <Menu.Item
+            name='heropres'>
+            Home
+          </Menu.Item>
         </Menu>
         <Grid divided='vertically'>
           <Grid.Row columns={2}>
           <Grid.Column>
             <Segment>
-              <ListCards>
+              <ListCardsToSell>
 
-              </ListCards>
+              </ListCardsToSell>
 
             </Segment>
           </Grid.Column>

@@ -1,9 +1,10 @@
-.BuyCard{
-    width: 100%;
-    height: 15000px;
+.Login{
+    width: 80%;
+    height: 1000px;
     overflow: hidden;
     position: absolute;
+    margin-left: 20px;
     flex-shrink: 0;
     border-color: transparent;
     background-color: rgba(235, 235, 235, 1);
-  }
+}

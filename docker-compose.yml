@@ -6,7 +6,7 @@ services:
 
     env_file: ./.env
     build:
-      context: .\front
+      context: ./front
       args:
         - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
     ports:
@@ -15,7 +15,7 @@ services:
       - front
   proxy:
     container_name: "proxy"
-    build: .\back\proxy
+    build: ./back/proxy
     env_file: ./.env
     environment:
       - CLIENT_ORIGIN=$CLIENT_ORIGIN
@@ -33,7 +33,7 @@ services:
           
   notification-service:
       container_name: notification-service        
-      build: .\back\microservices\notification_service
+      build: ./back/microservices/notification_service
       command: npm start
       env_file: ./.env
       ports:
@@ -43,7 +43,7 @@ services:
 
   game-service:
           container_name: game-service
-          build: .\back\microservices\game_service
+          build: ./back/microservices/game_service
           command: npm start
           env_file: ./.env
           ports:
@@ -53,7 +53,7 @@ services:
 
   user-service:
           container_name: user-service
-          build: .\back\microservices\user_service
+          build: ./back/microservices/user_service
           env_file: ./.env
           ports:
             - $USER_LOCAL_PORT:$USER_DOCKER_PORT

@@ -1,13 +1,36 @@
 import React, { useEffect, useState } from "react"
 import './NavBarHome.css';
 import { useSelector } from 'react-redux';
+import { API_USER } from "../../ressource/config";
+import { useDispatch } from 'react-redux';
+import {logoutUser} from '../../redux/actions/index';
+import { useNavigate } from "react-router-dom";
 
 export const NavBarHome= (props) =>{
+    
     const [moneyUser, setMoneyUser] = useState(-1);
     const [nameUser, setNameUser] = useState('noName');
-    let currentUserId=useSelector(state=>state.userReducer.user_id);
+    let currentUser = useSelector(state=>state.userReducer.user);
+    
+    const dispatch = useDispatch();
+
+    //const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
+        alert("Vous êtes déconnecté");
+        //navigate("/");
+    };
+
     const fetchData = () => {
-      fetch("http://vps.cpe-sn.fr:8083/user/"+currentUserId)
+      fetch(API_USER+"user/"+currentUser.id,
+      {
+          method: "GET",
+            headers: { 
+                //'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+      })
          .then(response => {
           //console.log(response.json())
              return response.json()
@@ -20,8 +43,12 @@ export const NavBarHome= (props) =>{
            })
        }
        useEffect(() => {
-        fetchData()
-          }, moneyUser)
+        if (currentUser) {
+          fetchData();
+        }
+          }, [currentUser,moneyUser, nameUser]);
+
+       
     
     return(
         <div>
@@ -32,6 +59,9 @@ export const NavBarHome= (props) =>{
             <div className="user">
               <img alt='userImg' src="/images/user.png" className="userImages"/>
               <span className="userLabel">{nameUser}</span>
+            </div>
+            <div className="logout">
+            <button onClick={handleLogout}>Logout</button>
             </div>
         </div>
         );

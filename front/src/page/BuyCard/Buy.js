@@ -5,12 +5,19 @@ import {ListCards} from '../../components/card/ListCards';
 import { useSelector } from 'react-redux';
 import "./Buy.css";
 import { API_USER } from "../../ressource/config";
+import { useNavigate } from "react-router-dom";
+import {updateUser} from '../../redux/actions/index';
+import {  useDispatch } from 'react-redux';
 
 //Create function component
 export const Buy =(props) =>{
-    const item = useSelector(state=> state.cardReducer.value);
-    let currentUserId=useSelector(state=>state.userReducer.user_id);
-    const [currentUser,setCurrentUser]= useState({
+    const cardItem = useSelector(state=> state.cardReducer.value);
+    let currentUser=useSelector(state=>state.userReducer.user);
+    const [money, setMoney] = useState(currentUser.money);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    /*const [currentUser,setCurrentUser]= useState({
                                         id:12,
                                         surname:"John",
                                         lastname:"Doe",
@@ -18,12 +25,12 @@ export const Buy =(props) =>{
                                         pwd:"jdoepwd",
                                         img:'https://i.pinimg.com/474x/9f/4b/6f/9f4b6ff027c0a45da65081efee6bdd36.jpg',
                                         money:1000,
-                                      });
-     function callbackErr(data){
+                                      });*/
+    /* function callbackErr(data){
         console.log(data);
-    };
+    };*/
 
-    function handleChange(data){
+    /*function handleChange(data){
       console.log(data);
       setCurrentUser({
         id:data.id,
@@ -34,32 +41,65 @@ export const Buy =(props) =>{
         money:data.money,
         img:data.img,
       });
-    };
+    };*/
 
-    function submitUserHandler(data){
+    /*function submitUserHandler(data){
       console.log("user to submit"+data);
-    };
+    };*/
+   
 
     function buyCard(){
         let jsonData = { 
-        user_id: parseInt(currentUserId), 
-        card_id: item.id,
+        user_id: currentUser.id, 
+        card_id: cardItem.id,
         }
-        console.log("button clicked")
-        // Send data to the backend via POST
-        fetch(API_USER+'store/buy', { // Enter your IP address here
-       
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        method: 'POST', 
-        body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
-        
+        console.log("button BUY clicked")
+        fetch(API_USER + "store/buy", { 
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST', 
+          body: JSON.stringify(jsonData) 
         })
-        console.log(jsonData)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          console.log("Transaction success!");
+          fetch(API_USER + "user/" + currentUser.id)
+            .then(res => {
+              if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+              }
+              return res.json();
+            })
+            .then(data => {
+              setMoney(data.money);
+              dispatch(updateUser(data));
+              alert("Achat bien effectué !")
+            });
+        })
+        .catch(error => console.error(error));
+      /*async function getUser(id) {
+        const response = await fetch(API_USER + "user/" + (id));
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Transaction d'achat terminée");
+        dispatch(updateUser(data));
+        navigate("/");
+        }*/
+        
         }
 
+       
+       
     return (
       <div className='BuyCard'>
         <Menu>

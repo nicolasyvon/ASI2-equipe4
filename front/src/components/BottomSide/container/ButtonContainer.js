@@ -24,7 +24,7 @@ export const ButtonContainer= (props) =>{
                     <Button title="PLAY" visual_source="/images/play.png"/>
                 </div>
 
-                <div className='Connection'onClick={()=>redirectHandler("Connection")}>
+                <div className='Connection' onClick={()=>redirectHandler("SignIn")}>
                     <Button title="CONNECT" visual_source="/images/user.png"/>
                 </div>
 
