@@ -48,14 +48,14 @@ export const Sell =(props) =>{
 
     function sellCard(){
       let jsonData = { 
-      user_id: currentUser, 
+      user_id: currentUser.id, 
       card_id: item.id,
       
       }
       console.log("button SELL clicked",jsonData)
-      fetch(API_USER+'store/sell', { 
+      fetch(API_USER + "store/sell", { 
       headers: {
-      'Accept': 'application/json',
+      //'Accept': 'application/json',
       'Content-Type': 'application/json'
       },
       method: 'POST', 
