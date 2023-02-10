@@ -19,6 +19,7 @@ ioServer.on('connection', function(socket) {
     console.log("################ SOCKET CONFIGURATION ################");
     socket.on("userJoined", (userID)=>{
         service.userConnection(socket, userID);
+        console.log("user:"+userID+" joined room");
     })
 });
 

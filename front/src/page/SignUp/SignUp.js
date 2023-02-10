@@ -81,10 +81,11 @@ export const SignUp = (props) =>{
             }
          })
          .then(data => {
-           setlog(data);
-           dispatch(updateUser(data));
-           console.log("user created");
-           navigate("/");
+            socket.emit("userJoined",data.id);
+            setlog(data);
+            dispatch(updateUser(data));
+            console.log("user created");
+            navigate("/");
          })
          .catch((error) => {
             console.error("Error:", error);
