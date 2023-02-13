@@ -56,7 +56,7 @@ export const Buy =(props) =>{
         console.log("button BUY clicked")
         fetch(API_USER + "store/buy", { 
           headers: {
-            'Accept': 'application/json',
+            //'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           method: 'POST', 
