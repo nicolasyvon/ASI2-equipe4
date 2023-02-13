@@ -14,9 +14,9 @@ Plusieurs requêtes sont disponible sur ce serveur : <br>
 
 ```json
 {
-      "gameName": "gameName",
-      "userName": "userName",
-      "id": 1 //id de l'utilisateur créant la game
+    "gameName":"superGame",
+    "userName":"user1",
+    "id":7
 }
 ``` 
 Si tout se passe bien l'utilisateur recevra une réponse 200 du serveur avec le message: "Game created". Si jamais le nom de la game est déjà prise alors l'utilisateur recevra une réponse 500 du serveur avec le message : "Room name is already taken. Choose another".
@@ -24,9 +24,9 @@ Si tout se passe bien l'utilisateur recevra une réponse 200 du serveur avec le 
 - http://127.0.0.1:6060/game/joinGame : requête POST permettant de rejoindre une partie déjà créée Il est nécessaire de lui envoyer l'objet json suivant:
 ```json
 {
-      "gameName": "gameName",
-      "userName": "userName",
-      "id": 1 //id de l'utilisateur créant la game
+    "gameName":"superGame",
+    "userName":"user2",
+    "id":2
 }
 ``` 
 Si tout se passe bien l'utilisateur recevra une réponse 200 du serveur avec le message: "Game joined". Sinon soit la game est pleine ou le nom de la game est déjà prise, dans ce cas là l'utilisateur recevra une réponse 500 du serveur avec le message adéquat. 
@@ -58,9 +58,9 @@ requête POST permettant à l'utilisateur de choisir les pokémons qui constitue
 ```json
 {
     "gameName":"superGame",
-    "userName":"nico",
-    "id":"1",
-    "pokemonsId":[1,2,3,4,5] //liste d'id de pokemons qui constitueront l'équipe du joueur   
+    "userName":"user1",
+    "id":7,
+    "pokemonsId":[6,7,8,9,10]
 }
 ```
 Si cette requête fonctionne l'utilisateur recevra un réponse 200 du serveur, de plus il recevra par socket l'objet json suivant. De même l'évènement de la socket sera l'évènement "gameState".</br>
@@ -253,10 +253,10 @@ requête POST permettant à un pokemon d'attaquer un autre pokemon. Pour que cet
 ```json
 {
     "gameName":"superGame",
-    "attackerId":1, // id du joueur qui attaque
-    "pokemonAttackerId":2, //id du pokemon qui attaque
-    "defenderId":3, // id du joueur qui défend
-    "pokemonDefenderId":4 //id du pokemon qui défend
+    "attackerId":7, 
+    "pokemonAttackerId":7, 
+    "defenderId":2, 
+    "pokemonDefenderId":3 
 }
 ```
 A chaque attaque vous recevrez par socket l'évènement gameState avec l'objet json suivant:
