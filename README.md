@@ -374,4 +374,4 @@ A chaque attaque vous recevrez par socket l'évènement gameState avec l'objet j
     "numberOfPlayer":2 //nombre max de joueurs dans la game 
 }
 ```
-Cet objet permettra de voir le nombre de point de vie du pokemon qui a subit l'attaque et l'énergie du joueur à l'origine de l'attaque. Une fois que la partie est finie et qu'il y a un gagnant un évènement socket ("winner") est émis par le back permettant de notifier une fin de partie. 
+Cet objet permettra de voir le nombre de point de vie du pokemon qui a subit l'attaque et l'énergie du joueur à l'origine de l'attaque. Une fois que la partie est finie et qu'il y a un gagnant un évènement socket ("looser") est émis et transmet l'information de qui est le perdant. 

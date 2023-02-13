@@ -200,8 +200,30 @@ export class GameService {
     this.updateGame(game!);
     let gameSend = this.getGame(game!.getGameName());
     this.notifyGame(game,gameSend,"gameState");
+    this.victory(game!);
   }
 
+  victory(game:Game){
+    let players = game.getPlayers();
+    for (let player of players.values()){
+      let pokemons:Map<number,Pokemon> = player.getPokemons();
+      let numberOfPokemonDead = 0;
+      for (let pokemon of pokemons.values()){
+        if (pokemon.getHp()<=0){
+          numberOfPokemonDead+=1;
+        };
+      }
+      if(numberOfPokemonDead == pokemons.size){
+        this.notifyGame(game,player.getUsername(),"looser");
+        this.deleteGame(game.getGameName());
+      };
+    };
+  }
+
+
+  deleteGame(gameName:string){
+    this.games.delete(gameName);
+  }
 
 
   notifyGame(game, data, event) {
