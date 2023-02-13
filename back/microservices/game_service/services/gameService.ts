@@ -44,6 +44,8 @@ export class GameService {
       game.addPlayer(player);
       this.games.delete(body.gameName);
       this.games.set(game.getGameName(),game);
+      let gameSend = this.getGame(game.getGameName());
+      this.notifyGame(game,gameSend,"gameState");
     }
   }
 
@@ -170,6 +172,8 @@ export class GameService {
       player?.setPokemons(data!);
       game?.updatePlayer(player!);
       this.updateGame(game!);
+      let gameSend = this.getGame(game!.getGameName());
+      this.notifyGame(game,gameSend,"gameState");
     }
     )
   }
@@ -194,6 +198,8 @@ export class GameService {
     game?.updatePlayer(defender!);
     game?.updatePlayer(attacker!);
     this.updateGame(game!);
+    let gameSend = this.getGame(game!.getGameName());
+    this.notifyGame(game,gameSend,"gameState");
   }
 
 

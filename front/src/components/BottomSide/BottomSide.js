@@ -6,6 +6,7 @@ import { Buy } from '../../page/BuyCard/Buy';
 import {Login} from '../../page/SignIn/Login';
 import {SignUp} from '../../page/SignUp/SignUp'
 import {SocketContext, socket} from '../../ressource/socket';
+import {ChatBox} from "../ChatBox/ChatBox";
  
 
 
@@ -22,7 +23,7 @@ export const BottomSide= (props) =>{
                             <Route path='/Buy' element={<Buy/>} />
                             <Route path='/SignIn' element={<Login/>}/>
                             <Route path='/SignUp' element={<SignUp/>}/>
-                            <Route path='/Play'/>
+                            <Route path='/Play' element={<ChatBox/>}/>
                         </Routes>
                 </BrowserRouter>
             </SocketContext.Provider>
