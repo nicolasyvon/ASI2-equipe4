@@ -9,6 +9,7 @@ const routes = (app) => {
   app.route("/choosePokemon").post(controllers.choosePokemon);
   app.route("/getPokemon/:idPokemon").get(controllers.getPokemon);
   app.route("/getPokemons").get(controllers.getPokemons);
+  app.route("/attack").post(controllers.attack);
 };
 
 export default routes;

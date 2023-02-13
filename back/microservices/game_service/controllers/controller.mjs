@@ -80,6 +80,11 @@ const controllers = {
     })
   },
 
+  attack:(req,res)=>{
+    service.attack(req.body);
+    res.send("ok");
+  },
+
 };
 
 export default controllers;

@@ -4,6 +4,7 @@ import { Player } from "../model/GameModel/Player.js";
 import { Pokemon } from "../model/GameModel/Pokemon.js";
 import {CreateOrJoin} from "../model/RequestModel/CreateOrJoin.js";
 import { ChoosePokemon } from "../model/RequestModel/ChoosePokemon.js";
+import { Attack } from "model/RequestModel/Attack.js";
 
 export class GameService {
 
@@ -160,7 +161,7 @@ export class GameService {
   }
 
 
-   public async choosePokemon(body:ChoosePokemon){
+  public async choosePokemon(body:ChoosePokemon){
     let game = this.games.get(body.gameName);
     let player = game?.getPlayer(body.id);
     this.getPokemonsById(body.pokemonsId)
@@ -171,7 +172,31 @@ export class GameService {
       this.updateGame(game!);
     }
     )
-   }
+  }
+
+  public attack(body:Attack){
+    let game = this.games.get(body.gameName);
+    let attacker = game?.getPlayer(body.attackerId);
+    let defender = game?.getPlayer(body.defenderId);
+    let pokemonAttacker = attacker?.getPokemonById(body.pokemonAttackerId);
+    let pokemonDefender = defender?.getPokemonById(body.pokemonDefenderId);
+
+    console.log(pokemonAttacker);
+
+    let newHpPokemonDefender = pokemonDefender?.getHp()! - pokemonAttacker?.getAttack()!;
+    let newEnergyAttacker = attacker?.getEnergy()! - pokemonAttacker?.getAttack()!;
+
+
+    pokemonDefender?.setHp(newHpPokemonDefender);
+    attacker?.setEnergy(newEnergyAttacker);
+    
+    defender?.updatePokemon(pokemonDefender!);
+    game?.updatePlayer(defender!);
+    game?.updatePlayer(attacker!);
+    this.updateGame(game!);
+  }
+
+
 
   notifyGame(game, data, event) {
     Array.from(game.getPlayers().keys()).forEach((user) => {

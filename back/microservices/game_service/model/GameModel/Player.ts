@@ -26,6 +26,10 @@ export class Player {
       return this.pokemons;
     }
 
+    public getPokemonById(idPokemon:number):Pokemon{
+      return this.pokemons.get(idPokemon)!;
+    }
+
     public addPokemon(pokemon:Pokemon){
       if (this.pokemons.size<=this.numberOfPokemon){
         this.pokemons.set(pokemon.getId(),pokemon);
@@ -42,6 +46,11 @@ export class Player {
 
     public setEnergy(newEnergy:number){
       this.energy=newEnergy;
+    }
+
+    public updatePokemon(pokemonUpdated:Pokemon){
+      this.pokemons.delete(pokemonUpdated.getId());
+      this.pokemons.set(pokemonUpdated.getId(),pokemonUpdated);
     }
 
 }
