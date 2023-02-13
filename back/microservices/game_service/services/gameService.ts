@@ -45,7 +45,7 @@ export class GameService {
       this.games.delete(body.gameName);
       this.games.set(game.getGameName(),game);
       let gameSend = this.getGame(game.getGameName());
-      this.notifyGame(game,gameSend,"gameState");
+      this.notifyGame(game,gameSend,"joinGame");
     }
   }
 
@@ -173,7 +173,7 @@ export class GameService {
       game?.updatePlayer(player!);
       this.updateGame(game!);
       let gameSend = this.getGame(game!.getGameName());
-      this.notifyGame(game,gameSend,"gameState");
+      this.notifyGame(game,gameSend,"choosePokemon");
     }
     )
   }

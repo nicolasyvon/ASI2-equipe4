@@ -30,7 +30,7 @@ Si tout se passe bien l'utilisateur recevra une réponse 200 du serveur avec le 
 }
 ``` 
 Si tout se passe bien l'utilisateur recevra une réponse 200 du serveur avec le message: "Game joined". Sinon soit la game est pleine ou le nom de la game est déjà prise, dans ce cas là l'utilisateur recevra une réponse 500 du serveur avec le message adéquat. 
-Lorsqu'un utilisateur rejoint la room les deux joueurs présent dans la room recevront par socket l'objet json suivant. L'évènement de la socket sera donc l'évènement "gameState" : 
+Lorsqu'un utilisateur rejoint la room les deux joueurs présent dans la room recevront par socket l'objet json suivant. L'évènement de la socket sera donc l'évènement "joinGame" : 
 ```json
 {
     "gameName":"superGame",
@@ -63,7 +63,7 @@ requête POST permettant à l'utilisateur de choisir les pokémons qui constitue
     "pokemonsId":[6,7,8,9,10]
 }
 ```
-Si cette requête fonctionne l'utilisateur recevra un réponse 200 du serveur, de plus il recevra par socket l'objet json suivant. De même l'évènement de la socket sera l'évènement "gameState".</br>
+Si cette requête fonctionne l'utilisateur recevra un réponse 200 du serveur, de plus il recevra par socket l'objet json suivant. De même l'évènement de la socket sera l'évènement "choosePokemon".</br>
 Exemple si un joueur à choisi ses pokemons:
 ```json
 {
