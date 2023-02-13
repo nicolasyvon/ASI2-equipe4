@@ -55,6 +55,7 @@ export const Login = (props) =>{
        
         if (response.ok) {
             const data = await response.json();
+            socket.emit("userJoined",data+1);
             setlog(data);
             getUser(data);
         } else {

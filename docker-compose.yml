@@ -59,6 +59,15 @@ services:
             - $USER_LOCAL_PORT:$USER_DOCKER_PORT
           networks:
             - back
+
+  chat-service:
+          container_name: chat-service
+          build: ./back/microservices/chat_service
+          env_file: ./.env
+          ports:
+            - $CHAT_LOCAL_PORT:$CHAT_DOCKER_PORT
+          networks:
+            - back
       
 networks:
   back:
