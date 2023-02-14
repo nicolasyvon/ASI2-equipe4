@@ -20,7 +20,7 @@ export const ButtonContainer= (props) =>{
                     <Button title="SELL" visual_source="/images/sell.png"/>
                 </div>
 
-                <div className='Play' onClick={()=>redirectHandler("Play")}>
+                <div className='Play' onClick={()=>redirectHandler("RoomManager")}>
                     <Button title="PLAY" visual_source="/images/play.png"/>
                 </div>
 

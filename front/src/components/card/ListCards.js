@@ -13,7 +13,7 @@ export const ListCards= ( state={items:undefined} )=>{
   let currentUser=useSelector(state=>state.userReducer.user);
 
   function handleclick(item) {
-    console.log('The link has been  clicked.', item);
+    console.log('card clicked.', item);
     dispatch(updateCurrentCard(item));
   
   }

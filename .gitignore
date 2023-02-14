@@ -1,2 +1,12 @@
 */.metadata/
 /.metadata/
+back/.idea/back 2.iml
+back/.project 2
+back/.idea/.gitignore 2
+back/.idea/modules 2.xml
+back/.idea/vcs 2.xml
+back/.idea/workspace 2.xml
+back/microservices/game_service/ReadMe 2.md
+back/microservices/game_service/tsconfig 2.json
+back/microservices/game_service/services/game_service 2.mjs
+back/microservices/game_service/services/gameService 2.ts

@@ -30,7 +30,7 @@ export const updateU1SelectedCard =
 export const updateU2SelectedCard = 
 (value)=>{
                 return { 
-                        type: 'UPDATE_U1_SELECTED_CARD', 
+                        type: 'UPDATE_U2_SELECTED_CARD', 
                         obj: value 
                 }; 
         } 
@@ -47,6 +47,23 @@ export const setPlayer2 =
 (value)=>{
                 return { 
                         type: 'SET_PLAYER2', 
+                        obj: value 
+                }; 
+        } 
+
+
+export const setPercentPlayer1 = 
+(value)=>{
+                return { 
+                        type: 'SET_PERCENT_PLAYER1', 
+                        obj: value 
+                }; 
+        } 
+
+export const setPercentPlayer2 = 
+(value)=>{
+                return { 
+                        type: 'SET_PERCENT_PLAYER2', 
                         obj: value 
                 }; 
         } 
