@@ -7,7 +7,6 @@ import {Login} from '../../page/SignIn/Login';
 import {SignUp} from '../../page/SignUp/SignUp';
 import {GameBoard} from '../../page/Game/GameBoard';
 import {SocketContext, socket} from '../../ressource/socket';
-import {ChatBox} from "../ChatBox/ChatBox";
  
 
 
