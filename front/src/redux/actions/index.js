@@ -35,6 +35,22 @@ export const updateU2SelectedCard =
                 }; 
         } 
 
+export const setPlayer1 = 
+(value)=>{
+                return { 
+                        type: 'SET_PLAYER1', 
+                        obj: value 
+                }; 
+        } 
+
+export const setPlayer2 = 
+(value)=>{
+                return { 
+                        type: 'SET_PLAYER2', 
+                        obj: value 
+                }; 
+        } 
+
 export const updateListCard = 
 (value) => {
         return { type: 'UPDATE_CURRENT_LIST_CARD', obj: value }; 
