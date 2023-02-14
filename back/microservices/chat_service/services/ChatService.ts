@@ -17,16 +17,40 @@ export class ChatService {
   public createRoom(body:CreateRoom):boolean{
     let ret = false;
     if(!this.gameExist(body.roomName)){
-      let room = new Room(body.roomName,body.players);
+      let room = new Room(body.roomName);
+      room.addPlayer(body.player);
       this.rooms.set(body.roomName,room);
       ret = true;
     }
     return ret;    
   }
 
+  public joinRoom(body:CreateRoom):boolean{
+    let ret = false;
+    if(this.gameExist(body.roomName)){
+      let room =this.rooms.get(body.roomName);
+      if(room!=undefined){
+        room.addPlayer(body.player);
+        this.updateRoom(room);
+        ret = true;
+      }
+    }
+    return ret;
+  }
+
+  public updateRoom(roomUpdate:Room):void{
+    if (this.gameExist(roomUpdate.getGameName())){
+      this.rooms.delete(roomUpdate.getGameName());
+      this.rooms.set(roomUpdate.getGameName(),roomUpdate);
+    }
+   }
+
   public sendMessage(body:SendMessage){
-    this.notifyUser(body.senderId,body.message,"chatMessage");
-    this.notifyUser(body.receiverId,body.message,"chatMessage");
+    let room = this.rooms.get(body.roomName);
+    if (room != undefined){
+      let receiverId = room.getOtherPlayerId(body.senderId);
+      this.notifyUser(receiverId,body.message,"chatMessage");
+    }
   }
 
   notifyUser(userId:number,data,event:string){

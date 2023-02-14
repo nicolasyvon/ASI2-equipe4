@@ -1,11 +1,11 @@
 export class CreateRoom {
 
     roomName:string;
-    players:number[];
+    player:number;
   
-    constructor(gameName:string, players:number[]) {
+    constructor(gameName:string, player:number) {
       this.roomName = gameName;
-      this.players = players;
+      this.player = player;
     }
   
 }

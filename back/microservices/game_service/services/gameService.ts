@@ -32,6 +32,18 @@ export class GameService {
       let player = new Player(body.userName,body.id);
       let game = new Game(body.gameName,player);
       this.games.set(body.gameName,game);
+      let createRoomBody = {
+        "roomName":game.getGameName(),
+        "player":player.getId()
+      };
+      axios
+        .post(
+          `http://chat-service:${process.env.CHAT_DOCKER_PORT}/createRoom`,
+          createRoomBody
+        )
+        .catch((err) => {
+          throw new Error(err);
+        });
       ret = true;
     }
     return ret;    
@@ -46,6 +58,18 @@ export class GameService {
       this.games.set(game.getGameName(),game);
       let gameSend = this.getGame(game.getGameName());
       this.notifyGame(game,gameSend,"joinGame");
+      let joinRoomBody = {
+        "roomName":game.getGameName(),
+        "player":player.getId()
+      };
+      axios
+        .post(
+          `http://chat-service:${process.env.CHAT_DOCKER_PORT}/joinRoom`,
+          joinRoomBody
+        )
+        .catch((err) => {
+          throw new Error(err);
+      });
     }
   }
 
