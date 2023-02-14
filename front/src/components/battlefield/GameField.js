@@ -1,7 +1,30 @@
-import React, { useEffect, useState } from "react"
 import CardDisplay from "../card/CardDisplay"
+import CardGame from "../card/CardGame";
+import React, { useState,useContext,useEffect } from "react";
+import { API_USER } from "../../ressource/config";
 
 export const GameField = () => {
+
+        const [player1, setPlayer1] = useState({});
+        const [player2, setPlayer2] = useState({});
+        const [player1Cards, setPlayer1Cards] = useState([]);
+        const [player2Cards, setPlayer2Cards] = useState([]);
+
+        const fetchData = () => {
+                fetch(API_USER+"cards")
+                   .then(response => {
+                       return response.json()
+                     })
+                     .then((data) => {
+                        const user1Cards = data.filter(card => player1.cardList.includes(card.id));
+                        const user2Cards = data.filter(card => player2.cardList.includes(card.id));
+                        setPlayer1Cards(user1Cards);
+                        setPlayer2Cards(user2Cards);
+                      });
+                 }
+
+        fetchData()
+
     return (
         <div class="ui segment" style={{height:'100%'}}>
         <div class="ui grid">
@@ -35,25 +58,25 @@ export const GameField = () => {
                                                         <div class="column">
                                                                 <div id="shortCardA1">
                                                                     CardA <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                         </div>
                                                         <div class="column">
                                                                 <div id="shortCardA2">CardA <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                         </div>
                                                         <div class="column">
                                                                 <div id="shortCardA3">CardA <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                         </div>
                                                         <div class="column">
                                                                 <div id="shortCardA4">CardA <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                         </div>
                                                 </div>
                                         </div>
                                         <div class="four wide column">
                                                 <div id="fullCardA1">Card A1 <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                <CardGame></CardGame></div> 
                                         </div>
                                 </div>
                         </div>
@@ -100,25 +123,25 @@ export const GameField = () => {
                                                         <div class="ui four column grid">
                                                                 <div class="column">
                                                                         <div id="shortCardB1">CardB <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                                 </div>
                                                                 <div class="column">
                                                                         <div id="shortCardB2">CardB <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                                 </div>
                                                                 <div class="column">
                                                                         <div id="shortCardB3">CardB <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                                 </div>
                                                                 <div class="column">
                                                                         <div id="shortCardB4">CardB <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                                 </div>
                                                         </div>
                                                 </div>
                                                 <div class="four wide column">
                                                         <div id="fullCardB1">CardB1 <br/>
-                                                                <CardDisplay></CardDisplay></div> 
+                                                                <CardGame></CardGame></div> 
                                                 </div>
                                         </div>
                                 </div>
