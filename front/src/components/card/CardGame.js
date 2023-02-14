@@ -2,16 +2,15 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import { Card, Image, Icon } from 'semantic-ui-react'
 
- export const CardPlayer2=(props) =>{
-    const item = useSelector(state=> state.cardPlayer2Reducer.value);
+ export const CardGame=(props) =>{
+    const item = useSelector(state=> state.cardReducer.value);
     return (
         <Card>
-            <Image src="/images/smiley.jpg" wrapped ui={false} />
+            <Image src={item.imgUrl} wrapped ui={false} />
             <Card.Content>
                 <Card.Meta>
-                    <ul>
+                    <ul style={{listStyleType: 'none', padding: 0, margin: 0}}>
                     <li >Name: {item.name} </li>
-                    <li >Description: {item.description}  </li>
                     <li >Attack: {item.attack}</li>
                     <li >
                     <a><Icon name='protect'/></a>  Defense: {item.defence} </li>
@@ -33,4 +32,4 @@ import { Card, Image, Icon } from 'semantic-ui-react'
 
         );
     }
-export default CardPlayer2;
+export default CardGame;

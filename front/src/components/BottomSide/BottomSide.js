@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { Sell } from '../../page/SoldCard/Sell';
 import { Buy } from '../../page/BuyCard/Buy';
 import {Login} from '../../page/SignIn/Login';
-import {SignUp} from '../../page/SignUp/SignUp'
+import {SignUp} from '../../page/SignUp/SignUp';
+import {GameBoard} from '../../page/Game/GameBoard';
 import {SocketContext, socket} from '../../ressource/socket';
 import {ChatBox} from "../ChatBox/ChatBox";
  
@@ -23,7 +24,7 @@ export const BottomSide= (props) =>{
                             <Route path='/Buy' element={<Buy/>} />
                             <Route path='/SignIn' element={<Login/>}/>
                             <Route path='/SignUp' element={<SignUp/>}/>
-                            <Route path='/Play' element={<ChatBox/>}/>
+                            <Route path='/Play' element={<GameBoard/>}/>
                         </Routes>
                 </BrowserRouter>
             </SocketContext.Provider>
