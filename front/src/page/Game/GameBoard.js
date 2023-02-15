@@ -8,7 +8,7 @@ export const GameBoard = () => {
         <div style={{ width: '400px', flexShrink: 0 }}>
           <ChatZone/>
         </div>
-        <div style={{ width: '1400px', flexShrink: 0 }}>
+        <div style={{ width: '1000px', flexShrink: 0 }}>
           <GameField />
         </div>
       </div>

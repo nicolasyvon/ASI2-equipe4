@@ -38,7 +38,7 @@ export const NavBarHome= (props) =>{
           .then(data => {
             setMoneyUser(data['account']);
             console.log("fetch:"+moneyUser);
-            setNameUser(data['surName']);
+            setNameUser(data['login']);
             console.log("fetch:"+nameUser);
            })
        }

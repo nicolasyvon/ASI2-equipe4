@@ -1,14 +1,53 @@
 import CardDisplay from "../card/CardDisplay"
-import CardGame from "../card/CardGame";
+import CardGameA from "../card/CardGameA";
+import CardGameB from "../card/CardGameB";
 import React, { useState,useContext,useEffect } from "react";
 import { API_USER } from "../../ressource/config";
+import { useSelector } from 'react-redux';
+import CardRowView from "../card/CardRowView";
+import { setPercentPlayer1, setPercentPlayer2, updateU1SelectedCard, updateU2SelectedCard } from "../../redux/actions";
+import {  useDispatch } from 'react-redux';
 
 export const GameField = () => {
 
-        const [player1, setPlayer1] = useState({});
-        const [player2, setPlayer2] = useState({});
+        let p1 = useSelector(state=>state.gameReducer.player1);
+        let p2 = useSelector(state=>state.gameReducer.player2);  
+        let p1CardSelected = useSelector(state=>state.gameReducer.player1_selectedCard);
+        let p2CardSelected = useSelector(state=>state.gameReducer.player2_selectedCard);      
+        let currentUser = useSelector(state=>state.userReducer.user); 
+        const percentPlayer1 = useSelector(state => state.gameReducer.percentPlayer1);
+        const percentPlayer2 = useSelector(state => state.gameReducer.percentPlayer2);
+
+        const [player1SelectedCard, setPlayer1SelectedCard] = useState(null);
+        const [player2SelectedCard, setPlayer2SelectedCard] = useState(null);
+
+
+        const [player1, setPlayer1] = useState(currentUser);
+        const [player2, setPlayer2] = useState(currentUser);
         const [player1Cards, setPlayer1Cards] = useState([]);
         const [player2Cards, setPlayer2Cards] = useState([]);
+
+        const dispatch = useDispatch();
+
+        function handleCardAclick(card) {
+                console.log('card A clicked.', card.id);
+                dispatch(updateU1SelectedCard(card));  
+                setPlayer1SelectedCard(card);
+              }
+
+        function handleCardBclick(card) {
+                console.log('card B clicked.', card.id);
+                dispatch(updateU2SelectedCard(card));    
+                setPlayer2SelectedCard(card);    
+        }
+
+        function handlePercentPlayer1Change(newPercentValue) {
+                dispatch(setPercentPlayer1(newPercentValue));
+              }
+
+        function handlePercentPlayer2Change(newPercentValue) {
+        dispatch(setPercentPlayer2(newPercentValue));
+        }
 
         const fetchData = () => {
                 fetch(API_USER+"cards")
@@ -26,7 +65,7 @@ export const GameField = () => {
         fetchData()
 
     return (
-        <div class="ui segment" style={{height:'100%'}}>
+        <div class="ui segment" style={{height:'1300px', width:'1000px'}}>
         <div class="ui grid">
             <div class="four wide column">
                     <div id="chatContent"></div> 
@@ -44,39 +83,32 @@ export const GameField = () => {
                                                          </div>     
                                                          
                                                          <div class="row">
-                                                                 <div class="column">
-                                                                        <div class="ui teal progress" data-percent="74" id="progressBarId1" >
-                                                                            <div class="label">Action Points</div>
-                                                                            <div class="bar"></div>
+                                                                        <div class="column">
+                                                                                <div class="ui teal progress" data-percent={percentPlayer1} id="progressBarId1" >
+                                                                                    <div class="bar"></div>     
+                                                                                    <div class="label">Action Points</div>                                                                                   
+                                                                                </div>
                                                                         </div>
                                                                 </div>
-                                                        </div>
                                                 </div>
                                         </div>
                                         <div class="ten wide column">
                                                 <div class="ui four column grid">
-                                                        <div class="column">
-                                                                <div id="shortCardA1">
-                                                                    CardA <br/>
-                                                                <CardGame></CardGame></div> 
-                                                        </div>
-                                                        <div class="column">
-                                                                <div id="shortCardA2">CardA <br/>
-                                                                <CardGame></CardGame></div> 
-                                                        </div>
-                                                        <div class="column">
-                                                                <div id="shortCardA3">CardA <br/>
-                                                                <CardGame></CardGame></div> 
-                                                        </div>
-                                                        <div class="column">
-                                                                <div id="shortCardA4">CardA <br/>
-                                                                <CardGame></CardGame></div> 
-                                                        </div>
+                                                {
+                                                        player1Cards.map((item) => ( 
+                                                                <div class="column" key={item.id}>
+                                                                <div class="shortCardA" onClick={() =>handleCardAclick(item)}>
+                                                                <CardRowView card={item}></CardRowView></div> 
+                                                                </div>          
+                                                           
+                                                        ))
+                                                        }
+                                                        
                                                 </div>
                                         </div>
                                         <div class="four wide column">
-                                                <div id="fullCardA1">Card A1 <br/>
-                                                <CardGame></CardGame></div> 
+                                                <div id="fullCardA1">Player 1 Selected Card<br/>
+                                                <CardGameA card={p1CardSelected}></CardGameA></div> 
                                         </div>
                                 </div>
                         </div>
@@ -109,7 +141,7 @@ export const GameField = () => {
                                                                  </div>     
                                                                  <div class="row">
                                                                         <div class="column">
-                                                                                <div class="ui teal progress" data-percent="80" id="progressBarId2" >
+                                                                                <div class="ui teal progress" data-percent={percentPlayer2} id="progressBarId2" >
                                                                                     <div class="bar"></div>     
                                                                                     <div class="label">Action Points</div>                                                                                   
                                                                                 </div>
@@ -121,27 +153,22 @@ export const GameField = () => {
                                                 </div>
                                                 <div class="ten wide column">
                                                         <div class="ui four column grid">
-                                                                <div class="column">
-                                                                        <div id="shortCardB1">CardB <br/>
-                                                                <CardGame></CardGame></div> 
-                                                                </div>
-                                                                <div class="column">
-                                                                        <div id="shortCardB2">CardB <br/>
-                                                                <CardGame></CardGame></div> 
-                                                                </div>
-                                                                <div class="column">
-                                                                        <div id="shortCardB3">CardB <br/>
-                                                                <CardGame></CardGame></div> 
-                                                                </div>
-                                                                <div class="column">
-                                                                        <div id="shortCardB4">CardB <br/>
-                                                                <CardGame></CardGame></div> 
-                                                                </div>
+                                                        {
+                                                                player2Cards.map((item) => ( 
+                                                                        <div class="column">
+                                                                        <div class="shortCardB" onClick={() =>handleCardBclick(item)}>
+                                                                        <CardRowView card={item} ></CardRowView></div> 
+                                                                        </div>                                                                     
+                                                                ))
+                                                                }
+                                                        
                                                         </div>
+                                                                
+                                                        
                                                 </div>
                                                 <div class="four wide column">
-                                                        <div id="fullCardB1">CardB1 <br/>
-                                                                <CardGame></CardGame></div> 
+                                                        <div id="fullCardB1">Player 2 Selected Card<br/>
+                                                                <CardGameB card={p2CardSelected}></CardGameB></div> 
                                                 </div>
                                         </div>
                                 </div>
