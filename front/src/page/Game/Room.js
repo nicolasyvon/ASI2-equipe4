@@ -32,7 +32,7 @@ export const Room = () => {
       .then((response) => {
         if (response.ok) {
           alert("Game created!");
-          navigate("/WaitingRoom");
+          navigate("/ChoosingCards", { roomName: roomNameLower });
         } else {
           throw new Error("Error ! "+response.text);
         }
