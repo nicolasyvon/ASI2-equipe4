@@ -49,7 +49,7 @@ export class ChatService {
     let room = this.rooms.get(body.roomName);
     if (room != undefined){
       let receiverId = room.getOtherPlayerId(body.senderId);
-      this.notifyUser(receiverId,body.message,"chatMessage");
+      this.notifyUser(receiverId,body,"chatMessage");
     }
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { GameField } from "../../components/battlefield/GameField";
-import {ChatZone} from "../../components/battlefield/ChatZone";
+import {ChatZone} from "../../components/Chat/ChatZone";
 
 export const GameBoard = () => {
     return (
