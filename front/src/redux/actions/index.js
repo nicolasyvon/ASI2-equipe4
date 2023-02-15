@@ -73,4 +73,20 @@ export const updateListCard =
         return { type: 'UPDATE_CURRENT_LIST_CARD', obj: value }; 
 } 
 
+export const updateCardsPlayer1 = 
+(value)=>{
+                return { 
+                        type: 'UPDATE_CARDS_PLAYER1', 
+                        obj: value 
+                }; 
+        } 
+
+export const updateCardsPlayer2 = 
+(value)=>{
+                return { 
+                        type: 'UPDATE_CARDS_PLAYER2', 
+                        obj: value 
+                }; 
+        } 
+
     

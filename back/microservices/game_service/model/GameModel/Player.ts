@@ -12,7 +12,7 @@ export class Player {
       this.id = id;
       this.userName = userName;
       this.energy = 100;
-      this.numberOfPokemon=5;
+      this.numberOfPokemon=4;
     }
     public getId():number{
       return this.id;

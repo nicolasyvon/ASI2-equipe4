@@ -5,6 +5,8 @@ const initialState = {
   player2_selectedCard: null,
   percentPlayer1: 100,
   percentPlayer2: 100,
+  cardsPlayer1:[],
+  cardsPlayer2:[]
 }
 
 const gameReducer= (state=initialState,action) => {
@@ -40,10 +42,16 @@ const gameReducer= (state=initialState,action) => {
         percentPlayer1: action.obj,
       };      
       
-      case "SET_PERCENT_PLAYER2":
+      case "UPDATE_CARDS_PLAYER1":
       return {
         ...state,
-        percentPlayer2: action.obj,
+        cardsPlayer1: action.obj,
+      };
+
+      case "UPDATE_CARDS_PLAYER2":
+      return {
+        ...state,
+        cardsPlayer2: action.obj,
       };
 
     default:

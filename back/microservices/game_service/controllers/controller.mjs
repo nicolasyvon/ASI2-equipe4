@@ -42,7 +42,7 @@ const controllers = {
   },
 
   getGame:(req,res)=>{
-    if (service.gameExist(req.body.gameName)){
+    if (service.gameExist(req.params.gameName)){
       let result = service.getGame(req.body.gameName);
       res.send(result);
     }
@@ -84,6 +84,11 @@ const controllers = {
     service.attack(req.body);
     res.send("ok");
   },
+
+  getIdOtherPlayer:(req,res)=>{
+    let result = service.getIdOtherPlayer(req.body);
+    res.send(result.toString());
+  }
 
 };
 

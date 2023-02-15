@@ -5,6 +5,7 @@ import { Pokemon } from "../model/GameModel/Pokemon.js";
 import {CreateOrJoin} from "../model/RequestModel/CreateOrJoin.js";
 import { ChoosePokemon } from "../model/RequestModel/ChoosePokemon.js";
 import { Attack } from "model/RequestModel/Attack.js";
+import { GetIdOtherPlayer } from "../model/RequestModel/GetIdOtherPlayer.js"
 
 export class GameService {
 
@@ -81,10 +82,11 @@ export class GameService {
       if(mapPlayers!=undefined){
         for (let value of mapPlayers.values()){
           let player = {};
+          let pokemons:[Object] = this.getPokemonsOfPlayer(gameName,value.getId());
           player["id"]=value.getId();
           player["userName"]=value.getUsername();
           player["energy"]=value.getEnergy();
-          player["pokemons"]=this.getPokemonsOfPlayer(gameName,value.getId());
+          player["pokemons"]=pokemons;
           players.push(player);
         }
       }
@@ -92,25 +94,76 @@ export class GameService {
     return players;
   }
 
-  public getPokemonsOfPlayer(gameName:string,id:number){
-    let pokemons={}
+  public getPokemonsOfPlayer(gameName:string,id:number):[Object]{
+    let pokemons:[Object]=[{}];
     if(this.gameExist(gameName)){
       let game = this.games.get(gameName);
       let mapPlayers = game!["players"];
       let player = mapPlayers.get(id);
       let mapPokemons = player!["pokemons"];
       if(mapPokemons!=undefined){
-        pokemons = Object.fromEntries(mapPokemons);
+        for(let value of mapPokemons.values()){
+          let pokemon = {};
+          pokemon["id"]=value.getId();
+          pokemon["name"]=value.getName();
+          pokemon["description"]=value.getDescription();
+          pokemon["family"]=value.getFamily();
+          pokemon["affinity"]=value.getAffinity();
+          pokemon["imgUrl"]=value.getImgUrl();
+          pokemon["smallImgUrl"]=value.getSmallImgUrl();
+          pokemon["energy"]=value.getEnergy();
+          pokemon["hp"]=value.getHp();
+          pokemon["defense"]=value.getDefense();
+          pokemon["attack"]=value.getAttack();
+          pokemon["price"]=value.getPrice();
+          pokemon["userId"]=value.getUserId();
+          pokemons.push(pokemon);
+        }
       }
     }
     return pokemons;
   }
 
+  // public getPokemonsOfPlayer(gameName:string,id:number):[Object]{
+  //   let pokemons:[Object]=[{}];
+  //   if(this.gameExist(gameName)){
+  //     let game = this.games.get(gameName);
+  //     let mapPokemons = game!["pokemons"];
+  //     if(mapPokemons!=undefined){
+  //       for(let value of mapPokemons.values()){
+  //         let pokemon = {};
+  //         pokemon["id"]=value.getId();
+  //         pokemon["name"]=value.getName();
+  //         pokemon["description"]=value.getDescription();
+  //         pokemon["family"]=value.getFamily();
+  //         pokemon["affinity"]=value.getAffinity();
+  //         pokemon["imgUrl"]=value.getImgUrl();
+  //         pokemon["smallImgUrl"]=value.getSmallImgUrl();
+  //         pokemon["energy"]=value.getEnergy();
+  //         pokemon["hp"]=value.getHp();
+  //         pokemon["defense"]=value.getDefense();
+  //         pokemon["attack"]=value.getAttack();
+  //         pokemon["price"]=value.getPrice();
+  //         pokemon["userId"]=value.getUserId();
+  //         if(value.getUserId()==id){
+  //           pokemons.push(pokemon);
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return pokemons;
+  // }
+
   public getGame(gameName:string){
     let game={}
+    // let pokemon1:Object[];
+    // let pokemon2:Object[];
     if(this.gameExist(gameName)){
       game["gameName"]=gameName;
       game["players"]=this.getPlayersInGame(gameName);
+      // pokemon1=this.getPokemonsOfPlayer(gameName,game["players"][0]["id"]);
+      // pokemon2=this.getPokemonsOfPlayer(gameName,game["players"][1]["id"]);
+      // game["pokemons"]=pokemon1.concat(pokemon2);
     }
     return game;
   }
@@ -125,11 +178,14 @@ export class GameService {
     return listGames;
   }
 
-   public updateGame(gameUpdate:Game):void{
+  public async updateGame(gameUpdate:Game):Promise<Boolean>{
+    let ret = false;
     if (this.gameExist(gameUpdate.getGameName())){
+      ret = true;
       this.games.delete(gameUpdate.getGameName());
       this.games.set(gameUpdate.getGameName(),gameUpdate);
     }
+    return ret;
    }
 
   public async getPokemonById(idPokemon:number):Promise<Pokemon>{
@@ -167,22 +223,20 @@ export class GameService {
       }
     }).then(response => response.json()));
 
-    Promise.all(promises)
+    mapPokemons = await Promise.all(promises)
     .then(results => {
+      let mapPokemonsTemp:Map<number,Pokemon>=new Map();
+      // let pokemonTemp = new Pokemon(0,"","","","","","",0,0,0,0,0,0);
+      // mapPokemonsTemp.set(0,pokemonTemp);
       let p = results.length;
       for(let i=0;i<p;i++){
         let pokemon = new Pokemon(results[i].id,results[i].name,results[i].description,results[i].family,
             results[i].affinity,results[i].imgUrl,results[i].smallImgUrl,results[i].energy,
             results[i].hp,results[i].defense,results[i].attack,results[i].price,results[i].userId);
-            mapPokemons.set(results[i]["id"],pokemon);
+            mapPokemonsTemp.set(results[i]["id"],pokemon);
       }
-      return(mapPokemons)
+      return(mapPokemonsTemp)
     })
-    .catch(error => {
-      console.error(error);
-    });
-    let pokemon = new Pokemon(0,"","","","","","",0,0,0,0,0,0);
-    mapPokemons.set(0,pokemon);
     return(mapPokemons);
   }
 
@@ -190,14 +244,18 @@ export class GameService {
   public async choosePokemon(body:ChoosePokemon){
     let game = this.games.get(body.gameName);
     let player = game?.getPlayer(body.id);
+    let otherPlayerId = game?.getOtherPlayerId(body.id);
     this.getPokemonsById(body.pokemonsId)
     .then((data)=>{
       data.delete(0);
       player?.setPokemons(data!);
       game?.updatePlayer(player!);
-      this.updateGame(game!);
-      let gameSend = this.getGame(game!.getGameName());
-      this.notifyGame(game,gameSend,"choosePokemon");
+      this.updateGame(game!)
+      .then(()=>{
+        let sendGame=this.getGame(game!.getGameName());
+        this.notifyUser(otherPlayerId!,sendGame,"choosePokemon");
+      }
+      )
     }
     )
   }
@@ -209,7 +267,6 @@ export class GameService {
     let pokemonAttacker = attacker?.getPokemonById(body.pokemonAttackerId);
     let pokemonDefender = defender?.getPokemonById(body.pokemonDefenderId);
 
-    console.log(pokemonAttacker);
 
     let newHpPokemonDefender = pokemonDefender?.getHp()! - pokemonAttacker?.getAttack()!;
     let newEnergyAttacker = attacker?.getEnergy()! - pokemonAttacker?.getAttack()!;
@@ -219,6 +276,7 @@ export class GameService {
     attacker?.setEnergy(newEnergyAttacker);
     
     defender?.updatePokemon(pokemonDefender!);
+
     game?.updatePlayer(defender!);
     game?.updatePlayer(attacker!);
     this.updateGame(game!);
@@ -244,9 +302,30 @@ export class GameService {
     };
   }
 
+  getIdOtherPlayer(me:GetIdOtherPlayer):number{
+    let game = this.games.get(me.gameName);
+    let idOtherPlayer=-1;
+    if(game!=undefined){
+      idOtherPlayer = game.getOtherPlayerId(me.myId);
+    }
+    return idOtherPlayer;
+  }
+
 
   deleteGame(gameName:string){
     this.games.delete(gameName);
+  }
+
+  notifyUser(userId:number,data,event:string){
+    let body = { event: event, data: data, dest: userId };
+    axios
+        .post(
+          `http://notification-service:${process.env.NOTIFICATION_DOCKER_PORT}/notifyUser`,
+          body
+        )
+        .catch((err) => {
+          throw new Error(err);
+    });
   }
 
 
