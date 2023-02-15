@@ -55,18 +55,14 @@ export const Room = () => {
           id: currentUser.id
         })
       })
-        .then((response) => response.text())
-        .then((message) => {
-          if (message === "Room name is already taken. Choose another") {
-            alert(message)
-          } else {
-            alert(message)
-            navigate("/");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      .then((response) => {
+        if (response.ok) {
+          alert("Game joined!");
+          navigate("/ChoosingCards");
+        } else {
+          throw new Error("Error ! "+response.text);
+        }
+      });
     }
   };
   return (
