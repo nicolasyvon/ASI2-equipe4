@@ -26,24 +26,17 @@ export const Room = () => {
         body: JSON.stringify({
           gameName: roomNameLower,
           userName: currentUser.login,
-          id: 1
+          id: currentUser.id
         })
       })
       .then((response) => {
         if (response.ok) {
-          return response.json();
+          alert("Game created!");
+          navigate("/WaitingRoom");
         } else {
           throw new Error("Error ! "+response.text);
         }
-      })
-      .then((data) => {
-        alert("Game created!");
-        navigate("/WaitingRoom");
-      })
-      .catch((error) => {
-        alert("Error creating game: " + error.message);
       });
-      
     }
     };
   
@@ -59,7 +52,7 @@ export const Room = () => {
         body: JSON.stringify({
           gameName: roomNameLower,
           userName: currentUser.login,
-          id: 1
+          id: currentUser.id
         })
       })
         .then((response) => response.text())

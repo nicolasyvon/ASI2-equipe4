@@ -63,17 +63,23 @@ export const ChatZone = () => {
       message: message,
       senderName: user.login
     });
-     fetch(API_CHAT+"sendMessage",{
-        method: "POST",
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        body: data,
-      })
-      .catch((err) => {
-       throw new Error(`HTTP error! status: ${err}`);
-       });
-       setMessage("");
+    fetch(`${API_CHAT}sendMessage`,
+    {
+      method: "POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: data,
+    })
+    .then(response=>{
+      if(response.ok){
+        console.log(response);
+      }
+      else{
+        throw new Error(`Sending message failed! status: ${response.status}`);
+      }
+    });
+      setMessage("");
       if(textArea!=null){
         textArea.insertAdjacentHTML(
           "beforeend",

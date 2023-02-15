@@ -49,6 +49,10 @@ export const GameField = () => {
         dispatch(setPercentPlayer2(newPercentValue));
         }
 
+        function attack(){
+                
+        }
+
         const fetchData = () => {
                 fetch(API_USER+"cards")
                    .then(response => {
@@ -121,7 +125,10 @@ export const GameField = () => {
                                                 </h4>                                                        
                                         </div>
                                         <div class="four wide column">
-                                                <button class="huge ui primary button">
+                                                <button 
+                                                class="huge ui primary button"
+                                                onClick={attack}
+                                                >
                                                                 Attack
                                                 </button>
                                         </div>
