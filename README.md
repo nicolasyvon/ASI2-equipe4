@@ -3,9 +3,15 @@
 <u>Auteurs :</u> </br> Nicolas Clain, Absa Sô, Mouna Azzouzi, Ivana Yemele </br>
 
 <u>Principes :</u> </br> Cette application web permet de jouer au jeu de cartes Pokemon en ligne.  Celle-ci se compose de d'une page de connexion, d'une page d'achat et de vente de cartes et d'une page de jeu. Pour accéder aux différentes fonctionnalités de l'application il est essentiel de posséder un compte utilisateur. Une fois le compte créé si l'on veut accéder à la page de jeu on doit pour cela acheter des cartes via la boutique en ligne (5 cartes sont nécessaires au minimum afin de pouvoir jouer). </br> </br>
-Concernant le jeu celui-ci permet de faire s'affronter différents pokemons entre-eux. Au début de la partie les joueurs commencent par sélectionner 5 pokemons qu'ils vont utiliser pour la partie parmis les pokemons qu'ils possèdent. Une fois cette sélection faite, on passe à la phase de jeu où les joueurs auront la possibilité d'attaquer un autre pokémon de l'équipe adverse. Cette phase de combat se fait en tour par tour. La première équipe à avoir tous ses pokémons out perd le combat et donne 10% de son argent à l'équipe gagnante.</br>
+Concernant le jeu celui-ci permet de faire s'affronter différents pokemons entre-eux. Au début de la partie les joueurs commencent par sélectionner 4 pokemons qu'ils vont utiliser pour la partie parmis les pokemons qu'ils possèdent. Une fois cette sélection faite, on passe à la phase de jeu où les joueurs auront la possibilité d'attaquer un autre pokémon de l'équipe adverse. Cette phase de combat se fait en tour par tour. La première équipe à avoir tous ses pokémons out perd le combat.</br>
 
 <u>Organisation du projet :</u></br> Concernant le projet celui se divise en 4 microservices(game, notification, user et chat), un front et un proxy. Concernant la communication entre le front et les différents microservices les deux méthodes retenus sont les requêtes https et les websockets. Il a été décidé que les requêtes https permettront au front de pouvoir communiquer avec les microservices et que ces microservices pourront répondre via l'utilisation de web sockets. 
+
+![architecture](https://user-images.githubusercontent.com/72151863/219457362-78559e5a-23b0-4496-a4cb-8251266323f5.jpg)
+
+<u>Diagramme de séquence lors d'une phase de match:</u>
+
+![diagramme de séquence](https://user-images.githubusercontent.com/72151863/219461701-e1cd0005-bd72-4934-bce5-6daaed3cd43f.jpg)
 
 <u>Détails des microservices :</u></br>
 Game-service : Ce service permet de gérer toute la logique de jeu. Il utilise le port 6161 et si le proxy est activé est disponible à l'adresse : http://127.0.0.1:6060/game .
