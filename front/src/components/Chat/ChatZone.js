@@ -19,6 +19,7 @@ export const ChatZone = () => {
 
   useEffect(() => {
     socket.on("chatMessage",(messageFriend)=>{
+      console.log("coucou il y a eu un message mais tu ne l'affiche pas");
       if(textArea!=null){
         textArea.insertAdjacentHTML(
           "beforeend",
@@ -45,6 +46,7 @@ export const ChatZone = () => {
       message: message,
       senderName: user.login
     });
+    console.log(data);
     fetch(`${API_CHAT}sendMessage`,
     {
       method: "POST",
@@ -53,14 +55,6 @@ export const ChatZone = () => {
       },
       body: data,
     })
-    .then(response=>{
-      if(response.ok){
-        console.log(response);
-      }
-      else{
-        throw new Error(`Sending message failed! status: ${response.status}`);
-      }
-    });
       setMessage("");
       if(textArea!=null){
         textArea.insertAdjacentHTML(
