@@ -82,7 +82,7 @@ export class GameService {
       if(mapPlayers!=undefined){
         for (let value of mapPlayers.values()){
           let player = {};
-          let pokemons:[Object] = this.getPokemonsOfPlayer(gameName,value.getId());
+          let pokemons:Object[] = this.getPokemonsOfPlayer(gameName,value.getId());
           player["id"]=value.getId();
           player["userName"]=value.getUsername();
           player["energy"]=value.getEnergy();
@@ -94,8 +94,8 @@ export class GameService {
     return players;
   }
 
-  public getPokemonsOfPlayer(gameName:string,id:number):[Object]{
-    let pokemons:[Object]=[{}];
+  public getPokemonsOfPlayer(gameName:string,id:number):Object[]{
+    let pokemons:Object[]=[];
     if(this.gameExist(gameName)){
       let game = this.games.get(gameName);
       let mapPlayers = game!["players"];
