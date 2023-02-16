@@ -7,7 +7,7 @@ Concernant le jeu celui-ci permet de faire s'affronter différents pokemons entr
 
 <u>Organisation du projet :</u></br> Concernant le projet celui se divise en 4 microservices(game, notification, user et chat), un front et un proxy. Concernant la communication entre le front et les différents microservices les deux méthodes retenus sont les requêtes https et les websockets. Il a été décidé que les requêtes https permettront au front de pouvoir communiquer avec les microservices et que ces microservices pourront répondre via l'utilisation de web sockets. 
 
-![architecture](https://user-images.githubusercontent.com/72151863/219457362-78559e5a-23b0-4496-a4cb-8251266323f5.jpg)
+![architecture](https://user-images.githubusercontent.com/72151863/219462676-e7486dc3-cb02-4b48-be26-cff6bcc7dbad.png)
 
 <u>Diagramme de séquence lors d'une phase de match:</u>
 
