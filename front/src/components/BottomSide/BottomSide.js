@@ -9,7 +9,8 @@ import {GameBoard} from '../../page/Game/GameBoard';
 import {SocketContext, socket} from '../../ressource/socket';
 import { Room } from "../../page/Game/Room";
 import { WaitingRoom } from "../../page/Game/WaitingRoom";
-import {ChoosingCards} from "../../page/Game/ChoosingCards"
+import {ChoosingCards} from "../../page/Game/ChoosingCards";
+import { EndGame } from "../../page/Game/EndGame"
  
 
 
@@ -30,6 +31,7 @@ export const BottomSide= (props) =>{
                             <Route path='/RoomManager' element={<Room/>}/>
                             <Route path='/WaitingRoom' element={<WaitingRoom/>}/>
                             <Route path='/ChoosingCards' element={<ChoosingCards/>}/>
+                            <Route path='/EndGame' element={<EndGame/>}/>
                         </Routes>
                 </BrowserRouter>
             </SocketContext.Provider>

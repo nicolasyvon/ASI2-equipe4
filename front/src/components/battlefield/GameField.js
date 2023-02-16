@@ -9,11 +9,14 @@ import { setPercentPlayer1, setPercentPlayer2, updateU1SelectedCard, updateU2Sel
 import {  useDispatch } from 'react-redux';
 import { SocketContext } from "../../ressource/socket";
 import { API_GAME } from "../../ressource/config";
+import { useNavigate } from "react-router-dom";
 
 export const GameField = () => {
 
         let socket = useContext(SocketContext);
         let gameName = useSelector(state=>state.gameReducer.roomName);
+
+        const navigate = useNavigate();
 
         let currentUser = useSelector(state=>state.userReducer.user);  
 
@@ -38,7 +41,7 @@ export const GameField = () => {
         function completePlayer2Profile(listPlayers){
                 let n = listPlayers.length;
                 for (let i=0;i<n;i++){
-                        if(listPlayers[i]["id"]!=currentUser.id){
+                        if(listPlayers[i]["id"]!==currentUser.id){
                                 let player = {
                                         id:listPlayers[i]["id"],
                                         userName:listPlayers[i]["userName"],
@@ -53,11 +56,61 @@ export const GameField = () => {
                 let n = listPlayers.length;
                 let pokemonPlayer2 = [];
                 for (let i=0;i<n;i++){
-                        if(listPlayers[i]["userId"]!=currentUser.id){
+                        if(listPlayers[i]["id"]!==currentUser.id){
+                                console.log(p1.id);
                                 pokemonPlayer2=listPlayers[i]["pokemons"];
                         }
                 }
                 dispatch(updateCardsPlayer2(pokemonPlayer2));
+        }
+
+        function updatePlayer2Profile(listPlayers){
+                let n = listPlayers.length;
+                let pokemonPlayer2 = [];
+                for (let i=0;i<n;i++){
+                        if(listPlayers[i]["id"]==p2["id"]){
+                                console.log("is user 2:",p2.id);
+                                pokemonPlayer2=listPlayers[i]["pokemons"];
+                        }
+                }
+                dispatch(updateCardsPlayer2(pokemonPlayer2));
+        }
+
+        function updatePlayer2Cards(listPlayers){
+                let n = listPlayers.length;
+                let pokemonPlayer2 = [];
+                for (let i=0;i<n;i++){
+                        console.log("userList:",listPlayers[i]["userId"])
+                        if(listPlayers[i]["id"]==p2["id"]){
+                                pokemonPlayer2=listPlayers[i]["pokemons"];
+                        }
+                }
+                dispatch(updateCardsPlayer2(pokemonPlayer2));
+        }
+
+        function updatePlayer1Profile(listPlayers){
+                let n = listPlayers.length;
+                for (let i=0;i<n;i++){
+                        if(listPlayers[i]["id"]===currentUser.id){
+                                let player = {
+                                        id:listPlayers[i]["id"],
+                                        userName:listPlayers[i]["userName"],
+                                        energy:listPlayers[i]["energy"]
+                                };
+                                dispatch(setPlayer1(player));
+                        }
+                }
+        }
+
+        function updatePlayer1Cards(listPlayers){
+                let n = listPlayers.length;
+                let pokemonPlayer1 = [];
+                for (let i=0;i<n;i++){
+                        if(listPlayers[i]["id"]===currentUser.id){
+                                pokemonPlayer1=listPlayers[i]["pokemons"];
+                        }
+                }
+                dispatch(updateCardsPlayer1(pokemonPlayer1));
         }
 
         socket.on("choosePokemon",(result)=>{
@@ -67,9 +120,18 @@ export const GameField = () => {
         });
 
 
-        socket.on("gameState",(data)=>{
-                
+        socket.on("gameState",(result)=>{
+                let players = result.players;
+                console.log("players:",players);
+                //updatePlayer2Profile(players);
+                updatePlayer2Cards(players);
+                //updatePlayer1Profile(players);
+                updatePlayer1Cards(players);
         });
+
+        socket.on("looser",(data)=>{
+                navigate("/EndGame");
+        })
 
         function handleCardAclick(card) {
                 dispatch(updateU1SelectedCard(card));  
@@ -93,7 +155,7 @@ export const GameField = () => {
                         attackerId: currentUser.id,
                         pokemonAttackerId: p1CardSelected.id,
                         defenderId: p2.id,
-                        pokemonDefenderId: p1CardSelected.id
+                        pokemonDefenderId: p2CardSelected.id
                 });
                 fetch(`${API_GAME}attack`,
                 {
@@ -105,7 +167,7 @@ export const GameField = () => {
                 })
                 .then(response=>{
                 if(response.ok){
-                        console.log(response);
+
                 }
                 else{
                         throw new Error(`Sending message failed! status: ${response.status}`);
