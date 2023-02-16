@@ -6,7 +6,8 @@ const initialState = {
   percentPlayer1: 100,
   percentPlayer2: 100,
   cardsPlayer1:[],
-  cardsPlayer2:[]
+  cardsPlayer2:[],
+  roomName:""
 }
 
 const gameReducer= (state=initialState,action) => {
@@ -52,6 +53,12 @@ const gameReducer= (state=initialState,action) => {
       return {
         ...state,
         cardsPlayer2: action.obj,
+      };
+
+      case "SET_ROOM_NAME":
+      return {
+        ...state,
+        roomName: action.obj,
       };
 
     default:

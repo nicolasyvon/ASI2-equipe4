@@ -4,20 +4,25 @@ import './Room.css'
 import { API_GAME } from "../../ressource/config";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import {  useDispatch } from 'react-redux';
+import { setRoomName } from "../../redux/actions";
 
 export const Room = () => {
 
-  const [roomName, setRoomName] = useState("");
+  const dispatch = useDispatch();
+
+  const [roomName, setRoomName2] = useState("");
   const navigate = useNavigate();
   let currentUser = useSelector(state=>state.userReducer.user);
 
   const handleInputChange = (event) => {
-    setRoomName(event.target.value);
+    setRoomName2(event.target.value);
   };
 
   const handleCreateRoomClick = () => {
     if (roomName.trim() !== "") {
       const roomNameLower = roomName.toLowerCase();
+      dispatch(setRoomName(roomNameLower));
       fetch(API_GAME+"createGame", {
         method: "POST",
         headers: {
@@ -32,7 +37,7 @@ export const Room = () => {
       .then((response) => {
         if (response.ok) {
           alert("Game created!");
-          navigate("/ChoosingCards", { roomName: roomNameLower });
+          navigate("/WaitingRoom", { roomName: roomNameLower });
         } else {
           throw new Error("Error ! "+response.text);
         }
@@ -44,6 +49,7 @@ export const Room = () => {
   const handleJoinRoomClick = () => {
     if (roomName.trim() !== "") {
       const roomNameLower = roomName.toLowerCase();
+      dispatch(setRoomName(roomNameLower));
       fetch(API_GAME+"joinGame", {
         method: "POST",
         headers: {

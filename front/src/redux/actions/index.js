@@ -89,4 +89,12 @@ export const updateCardsPlayer2 =
                 }; 
         } 
 
+export const setRoomName = 
+(value)=>{
+                return { 
+                        type: 'SET_ROOM_NAME', 
+                        obj: value 
+                }; 
+        } 
+
     

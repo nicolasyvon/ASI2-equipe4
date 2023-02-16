@@ -10,30 +10,12 @@ export const ChatZone = () => {
   var textArea = document.getElementById("textArea");
   var menuUser = document.getElementById("menuUser");
 
+  let roomName = useSelector(state=>state.gameReducer.roomName);
+
   let user = useSelector(state=>state.userReducer.user);
   let [friend,setFriend] = useState("");
-  let [roomName,setRoomName] = useState("");
   let [message,setMessage] = useState("");
 
-  useEffect(() => {
-    socket.on("joinGame",(data)=>{
-      let players = data.players;
-      let n = players.length;
-      setRoomName(data.gameName);
-      for(let i=0;i<n;i++){
-        let player = players[i];
-        if(menuUser!=null){
-          menuUser.innerHTML(
-            "beforeend",
-            `<div className="item" onClick=${setFriend(player.login)}>
-              <i className="user circle icon"></i>
-              ${player.login}
-            </div>`
-          )
-        }
-      }
-    });
-  },[socket,menuUser]);  
 
   useEffect(() => {
     socket.on("chatMessage",(messageFriend)=>{

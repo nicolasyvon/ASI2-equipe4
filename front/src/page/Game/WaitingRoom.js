@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../../ressource/socket";
+import React, { useContext, useState } from "react";
+import { setRoomName } from "../../redux/actions";
+import {  useDispatch } from 'react-redux';
 
 export const WaitingRoom= () => {
-  const [loading, setLoading] = useState(true);
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 5000);
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(true);
+  let socket = useContext(SocketContext);
+  const navigate = useNavigate();
+
+  // setTimeout(() => {
+  //   setLoading(false);
+  // }, 5000);
+
+  socket.on("joinGame",(data)=>{
+    navigate("/ChoosingCards");
+  })
 
   return (
     <div className="container">

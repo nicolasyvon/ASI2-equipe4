@@ -53,7 +53,9 @@ const controllers = {
   
    choosePokemon:(req,res)=>{
     service.choosePokemon(req.body)
-    .then(res.send("ok"))
+    .then((data)=>{
+      res.send(data);
+    })
     .catch((err=>{
       res.status(500).send(err);
     }))

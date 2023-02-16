@@ -13,11 +13,11 @@ import { API_GAME } from "../../ressource/config";
 export const GameField = () => {
 
         let socket = useContext(SocketContext);
+        let gameName = useSelector(state=>state.gameReducer.roomName);
 
-        let [gameName,setGameName] = useState("");
         let currentUser = useSelector(state=>state.userReducer.user);  
 
-        let p1 = useSelector(state=>state.userReducer.player1); 
+        let p1 = useSelector(state=>state.gameReducer.player1); 
         let p2 = useSelector(state=>state.gameReducer.player2);
 
         let player1Cards = useSelector(state=>state.gameReducer.cardsPlayer1);
@@ -34,10 +34,11 @@ export const GameField = () => {
 
         useDispatch(setPlayer1(currentUser));
 
+
         function completePlayer2Profile(listPlayers){
                 let n = listPlayers.length;
                 for (let i=0;i<n;i++){
-                        if(listPlayers[i]["id"]!=p1.id){
+                        if(listPlayers[i]["id"]!=currentUser.id){
                                 let player = {
                                         id:listPlayers[i]["id"],
                                         userName:listPlayers[i]["userName"],
@@ -52,17 +53,14 @@ export const GameField = () => {
                 let n = listPlayers.length;
                 let pokemonPlayer2 = [];
                 for (let i=0;i<n;i++){
-                        if(listPlayers[i]["userId"]!=p1.id){
+                        if(listPlayers[i]["userId"]!=currentUser.id){
                                 pokemonPlayer2=listPlayers[i]["pokemons"];
                         }
                 }
-                console.log(pokemonPlayer2);
                 dispatch(updateCardsPlayer2(pokemonPlayer2));
         }
 
         socket.on("choosePokemon",(result)=>{
-                console.log(result);
-                setGameName(result.gameName);
                 let players = result.players;
                 completePlayer2Profile(players);
                 completePlayer2Cards(players);
@@ -74,12 +72,10 @@ export const GameField = () => {
         });
 
         function handleCardAclick(card) {
-                console.log('card A clicked.', card.id);
                 dispatch(updateU1SelectedCard(card));  
         }
 
         function handleCardBclick(card) {
-                console.log('card B clicked.', card.id);
                 dispatch(updateU2SelectedCard(card));   
         }
 
@@ -94,7 +90,7 @@ export const GameField = () => {
         function attack(){
                 let data = JSON.stringify({
                         gameName: gameName,
-                        attackerId: p1.id,
+                        attackerId: currentUser.id,
                         pokemonAttackerId: p1CardSelected.id,
                         defenderId: p2.id,
                         pokemonDefenderId: p1CardSelected.id
